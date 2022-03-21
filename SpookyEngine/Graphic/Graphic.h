@@ -24,7 +24,7 @@ public:
 		return textures[name];
 	}
 
-	shared_ptr<Sprite> GetSprite(shared_ptr<Texture> texture, double width, double height, double x, double y);
+	shared_ptr<Sprite> GetSprite(shared_ptr<Texture> texture, double width, double height, double x, double y, bool isFlipped = false);
 
 protected:
 	LPDIRECT3D9 d3d;            // the pointer to our Direct3D interface

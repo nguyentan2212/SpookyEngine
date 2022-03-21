@@ -2,6 +2,8 @@
 #include <memory>
 #include <vector>
 #include "Sprite.h"
+#include "../Utils/StringConverter.h"
+#include <d3d9.h>
 
 using namespace::std;
 
@@ -32,5 +34,6 @@ public:
 private:
 	vector<shared_ptr<Frame>> frames;
 	int currentFrame;
+	double aniTime;
 };
 

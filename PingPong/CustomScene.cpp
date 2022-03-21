@@ -13,23 +13,73 @@ bool CustomScene::Initialize()
 	obj->AddSprite(sprite);
 	objs.push_back(obj);
 
-	// character
-	tx = graphic->GetTexture("character");
+	// ani 1
 	shared_ptr<Animation> ani = shared_ptr<Animation>(new Animation());
+	double frameRate = 150;
+	tx = graphic->GetTexture("character0");
+	sprite = graphic->GetSprite(tx, 112, 128, 0, 0);
+	sprite->SetLocalPosition(Vector3D(0, 0, 0));
+	ani->AddFrame(sprite, frameRate);
 
-	for (int i = 0; i < 1; i++)
-	{
-		for (int j = 0; j < 4; j++)
-		{
-			sprite = graphic->GetSprite(tx, 860 / 5, 366 / 2, 860 / 5 * i, 366 / 2 * j);
-			sprite->SetLocalPosition(Vector3D(0, 0, 0));
-			ani->AddFrame(sprite, 200);
-		}
-	}
+	tx = graphic->GetTexture("character1");
+	sprite = graphic->GetSprite(tx, 78, 132, 0, 0);
+	sprite->SetLocalPosition(Vector3D(0, 0, 0));
+	ani->AddFrame(sprite, frameRate);
+
+	tx = graphic->GetTexture("character2");
+	sprite = graphic->GetSprite(tx, 89, 135, 0, 0);
+	sprite->SetLocalPosition(Vector3D(0, 0, 0));
+	ani->AddFrame(sprite, frameRate);
+
+	tx = graphic->GetTexture("character3");
+	sprite = graphic->GetSprite(tx, 124, 131, 0, 0);
+	sprite->SetLocalPosition(Vector3D(0, 0, 0));
+	ani->AddFrame(sprite, frameRate);
+
+	tx = graphic->GetTexture("character4");
+	sprite = graphic->GetSprite(tx, 132, 128, 0, 0);
+	sprite->SetLocalPosition(Vector3D(0, 0, 0));
+	ani->AddFrame(sprite, frameRate);
+
+	tx = graphic->GetTexture("character5");
+	sprite = graphic->GetSprite(tx, 101, 128, 0, 0);
+	sprite->SetLocalPosition(Vector3D(0, 0, 0));
+	ani->AddFrame(sprite, frameRate);
+
+	tx = graphic->GetTexture("character6");
+	sprite = graphic->GetSprite(tx, 86, 132, 0, 0);
+	sprite->SetLocalPosition(Vector3D(0, 0, 0));
+	ani->AddFrame(sprite, frameRate);
+
+	tx = graphic->GetTexture("character7");
+	sprite = graphic->GetSprite(tx, 97, 135, 0, 0);
+	sprite->SetLocalPosition(Vector3D(0, 0, 0));
+	ani->AddFrame(sprite, frameRate);
+
+	tx = graphic->GetTexture("character8");
+	sprite = graphic->GetSprite(tx, 116, 132, 0, 0);
+	sprite->SetLocalPosition(Vector3D(0, 0, 0));
+	ani->AddFrame(sprite, frameRate);
 	
+	tx = graphic->GetTexture("character9");
+	sprite = graphic->GetSprite(tx, 131, 128, 0, 0);
+	sprite->SetLocalPosition(Vector3D(0, 0, 0));
+	ani->AddFrame(sprite, frameRate);
 
-	obj = shared_ptr<GameObject>(new GameObject(Vector3D(50, 50, 0)));
+	// char 1
+	obj = shared_ptr<Character>(new Character(Vector3D(150, 150, 0)));
 	obj->AddAnimation(ani);
+	objs.push_back(obj);
+
+	// obj 2
+	obj = shared_ptr<GameObject>(new GameObject(Vector3D(600, 730, 0)));
+	obj->AddAnimation(ani);
+	objs.push_back(obj);
+
+	// obj 3
+	obj = shared_ptr<GameObject>(new GameObject(Vector3D(800, -100, 0)));
+	obj->AddAnimation(ani);
+
 	objs.push_back(obj);
 
     return true;

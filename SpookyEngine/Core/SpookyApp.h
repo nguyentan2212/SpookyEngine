@@ -28,6 +28,8 @@ protected:
 	shared_ptr<SpookyWindow> pWindow;
 	shared_ptr<Graphic> graphic;
 	SpookyApp();
+	double lag = 0;
+	double const MS_PER_UPDATE = 1000.0 / 30.0;
 	static shared_ptr<SpookyApp> instance;
 };
 

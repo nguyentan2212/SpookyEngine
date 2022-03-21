@@ -37,7 +37,14 @@ bool SpookyApp::ProcessMessage()
 
 void SpookyApp::Update() 
 {
-	graphic->UpdateScene(timer.GetMilisecondsDelta());
+	double delta = timer.GetMilisecondsDelta();
+	lag += delta;
+	while (lag >= MS_PER_UPDATE)
+	{
+		graphic->UpdateScene(delta);
+		lag -= MS_PER_UPDATE;
+	}
+	
 }
 
 void SpookyApp::Render() 

@@ -15,7 +15,12 @@ bool CustomGraphic::InitializeTexture()
 {
 	
 	textures["background"] = shared_ptr<Texture>(new Texture(d3ddev, L"background/3.png", D3DCOLOR_XRGB(248, 0, 248)));
-	textures["character"] = shared_ptr<Texture>(new Texture(d3ddev, L"megaman.png", D3DCOLOR_XRGB(247, 247, 247)));
+	for (int i = 0; i < 10; i++)
+	{
+		wstring str = L"characters/" + to_wstring(i) + L".png";
+		textures["character" + to_string(i)] = shared_ptr<Texture>(new Texture(d3ddev, str.c_str(), D3DCOLOR_XRGB(247, 247, 247)));
+	}
+	
 
 	return true;
 }

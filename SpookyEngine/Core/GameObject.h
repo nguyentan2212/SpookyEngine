@@ -15,12 +15,13 @@ public:
 	GameObject(const Vector3D& position);
 	GameObject(const Transform2D& transform);
 
+	virtual void Initialize() {};
 	void AddSprite(shared_ptr<Sprite> sprite);
 	void AddAnimation(shared_ptr<Animation> animation);
-	void Update(double delta);
-	void Render(Vector3D camPos);
+	virtual void Update(double delta);
+	virtual void Render(Vector3D camPos);
 
-private:
+protected:
 	vector<shared_ptr<Sprite>> sprites;
 	vector<shared_ptr<Animation>> animations;
 };

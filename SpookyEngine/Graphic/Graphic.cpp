@@ -84,7 +84,7 @@ void Graphic::Render()
 	d3ddev->Present(NULL, NULL, NULL, NULL);
 }
 
-shared_ptr<Sprite> Graphic::GetSprite(shared_ptr<Texture> texture, double width, double height, double x, double y)
+shared_ptr<Sprite> Graphic::GetSprite(shared_ptr<Texture> texture, double width, double height, double x, double y, bool isFlipped)
 {
-	return shared_ptr<Sprite>(new Sprite(texture, spriteHandler, width, height, x, y));
+	return shared_ptr<Sprite>(new Sprite(texture, spriteHandler, width, height, x, y, isFlipped));
 }

@@ -6,8 +6,8 @@
 class Sprite : public Transform2D
 {
 public:
-	Sprite(std::shared_ptr<Texture> texture, LPD3DXSPRITE spriteHandler, RECT srcRect);
-	Sprite(std::shared_ptr<Texture> texture, LPD3DXSPRITE spriteHandler, double width, double height, double x, double y);
+	Sprite(std::shared_ptr<Texture> texture, LPD3DXSPRITE spriteHandler, RECT srcRect, bool isFlipped = false);
+	Sprite(std::shared_ptr<Texture> texture, LPD3DXSPRITE spriteHandler, double width, double height, double x, double y, bool isFlipped = false);
 
 	void Render(Matrix3D transMat, Vector3D camPos);
 
@@ -25,5 +25,6 @@ private:
 	std::shared_ptr<Texture> texture; 
 	RECT srcRect;
 	LPD3DXSPRITE spriteHandler;
+	bool isFlipped;
 };
 
