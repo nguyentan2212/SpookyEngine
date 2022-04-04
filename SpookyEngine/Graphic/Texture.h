@@ -2,8 +2,10 @@
 #include <d3d9.h>
 #include <string>
 #include <d3dx9.h>
-#include "../Utils/StringConverter.h"
 #include <comdef.h>
+#include "../Utils/StringConverter.h"
+
+using namespace::std;
 
 class Texture
 {
@@ -16,6 +18,7 @@ public:
 	D3DCOLOR GetTransparentColor() const {
 		return transparentColor;
 	}
+
 private:
 	LPDIRECT3DTEXTURE9 texture = NULL;
 	D3DXIMAGE_INFO info;

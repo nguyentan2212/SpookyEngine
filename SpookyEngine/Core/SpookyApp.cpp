@@ -5,6 +5,7 @@ shared_ptr<SpookyApp> SpookyApp::instance = nullptr;
 SpookyApp::SpookyApp() 
 {
 	pWindow = shared_ptr<SpookyWindow>(new SpookyWindow());
+	scenes = vector<shared_ptr<Scene>>(0);
 }
 
 shared_ptr<SpookyApp> SpookyApp::GetInstance()
@@ -24,8 +25,12 @@ bool SpookyApp::Initialize(HINSTANCE hInstance, std::string window_title, std::s
     if (!pWindow->Initialize(hInstance, window_title, window_class, width, height))
         return false;
 
+	shared_ptr<Graphic> graphic = Graphic::GetInstance();
     if (graphic == nullptr || !graphic->Initialize(this->pWindow->GetHWND(), width, height))
         return false;
+
+	shared_ptr<ResourceLocator> locator = ResourceLocator::GetInstance();
+	locator->Initialize();
 
     return true;
 }
@@ -37,11 +42,15 @@ bool SpookyApp::ProcessMessage()
 
 void SpookyApp::Update() 
 {
+	if (scenes.size() == 0)
+	{
+		return;
+	}
 	double delta = timer.GetMilisecondsDelta();
 	lag += delta;
 	while (lag >= MS_PER_UPDATE)
 	{
-		graphic->UpdateScene(delta);
+		scenes[currentScene]->Update(delta);
 		lag -= MS_PER_UPDATE;
 	}
 	
@@ -49,12 +58,22 @@ void SpookyApp::Update()
 
 void SpookyApp::Render() 
 {
-	graphic->Render();
+	if (scenes.size() == 0)
+	{
+		return;
+	}
+
+	shared_ptr<Graphic> graphic = Graphic::GetInstance();
+	graphic->BeginRender();
+
+	scenes[currentScene]->Render();
+
+	graphic->EndRender();
 }
 
-void SpookyApp::SetGraphic(shared_ptr<Graphic> graphic)
+void SpookyApp::AddScene(shared_ptr<Scene> scene)
 {
-	this->graphic = graphic;
+	scenes.push_back(scene);
 }
 
 LRESULT SpookyApp::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)

@@ -11,12 +11,17 @@ void Scene::Update(double delta)
 	{
 		objs[i]->Update(delta);
 	}
+	shared_ptr<Camera2D> camera = Camera2D::GetInstance();
+	camera->Update();
 }
 
-void Scene::Render(Vector3D camPos)
+void Scene::Render()
 {
+	shared_ptr<Camera2D> camera = Camera2D::GetInstance();
+	Matrix transMat = Matrix::Translation(camera->GetPosition() * -1);
+
 	for (int i = 0; i < objs.size(); i++)
 	{
-		objs[i]->Render(camPos);
+		objs[i]->Render(transMat);
 	}
 }

@@ -14,16 +14,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // TODO: Place code here.
     shared_ptr<SpookyApp> pApplication = SpookyApp::GetInstance();
-
-    shared_ptr<CustomGraphic> graphic = CustomGraphic::GetInstance();
-    pApplication->SetGraphic(graphic);
-    
-    if (!pApplication->Initialize(hInstance, "Ping pong game", "PingPongGame", 600, 400))
+    shared_ptr<Graphic> graphic = Graphic::GetInstance();
+    if (!pApplication->Initialize(hInstance, "Ping pong game", "PingPongGame", 630, 450))
     {
         // Init failed
         return 0;
     }
-
+    shared_ptr<CustomScene> scene = shared_ptr<CustomScene>(new CustomScene());
+    scene->Initialize();
+    pApplication->AddScene(scene);
     while (pApplication->ProcessMessage())
     {
         pApplication->Update();

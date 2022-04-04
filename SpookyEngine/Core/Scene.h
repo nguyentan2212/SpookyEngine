@@ -2,6 +2,8 @@
 #include <memory>
 #include <vector>
 #include "GameObject.h"
+#include "../Graphic/Graphic.h"
+#include "ResourceLocator.h"
 
 using namespace::std;
 
@@ -10,9 +12,9 @@ class Scene
 public:
 	Scene();
 
-	virtual bool Initialize() = 0;
+	virtual bool Initialize() { return true; }
 	virtual void Update(double delta);
-	virtual void Render(Vector3D camPos);
+	virtual void Render();
 
 protected:
 	vector<shared_ptr<GameObject>> objs;

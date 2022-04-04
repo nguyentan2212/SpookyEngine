@@ -2,11 +2,6 @@
 
 std::wstring StringConverter::StringToWide(std::string str)
 {
-	std::wstring wide_string(str.begin(), str.end());
-	return wide_string;
-}
-
-LPCWSTR StringConverter::StringToCWide(std::string str)
-{
-	return StringToWide(str).c_str();
+	std::wstring stemp = std::wstring(str.begin(), str.end());
+	return stemp;
 }

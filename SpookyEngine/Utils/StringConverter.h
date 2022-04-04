@@ -5,6 +5,5 @@ class StringConverter
 {
 public:
 	static std::wstring StringToWide(std::string str);
-	static LPCWSTR StringToCWide(std::string str);
 };
 

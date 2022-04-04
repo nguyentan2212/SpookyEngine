@@ -1,47 +1,49 @@
 #include "GameObject.h"
 
-GameObject::GameObject() : Transform2D()
+GameObject::GameObject()
 {
-	sprites = vector<shared_ptr<Sprite>>(0);
+	drawableList = vector<shared_ptr<Drawable2D>>(0);
+	transform = Transform2D();
 }
 
-GameObject::GameObject(const Vector3D& position)
+GameObject::GameObject(const Vector& position)
 {
-	SetLocalPosition(position);
-	sprites = vector<shared_ptr<Sprite>>(0);
+	transform = Transform2D();
+	transform.SetLocalPosition(position);
+	drawableList = vector<shared_ptr<Drawable2D>>(0);
 }
 
-GameObject::GameObject(const Transform2D& transform) : Transform2D(transform)
+GameObject::GameObject(const Transform2D& transform) : transform(transform)
 {
 }
 
 void GameObject::AddSprite(shared_ptr<Sprite> sprite)
 {
-	sprites.push_back(sprite);
+	drawableList.push_back(sprite);
 }
 
 void GameObject::AddAnimation(shared_ptr<Animation> animation)
 {
-	animations.push_back(animation);
+	drawableList.push_back(animation);
+}
+
+void GameObject::SetLocalPosition(Vector position)
+{
+	transform.SetLocalPosition(position);
 }
 
 void GameObject::Update(double delta)
 {
-	for (int i = 0; i < animations.size(); i++)
+	for (int i = 0; i < drawableList.size(); i++)
 	{
-		animations[i]->Update(delta);
+		drawableList[i]->Update(delta);
 	}
 }
 
-void GameObject::Render(Vector3D camPos)
+void GameObject::Render(Matrix transMat)
 {
-
-	for (int i = 0; i < sprites.size(); i++)
+	for (int i = 0; i < drawableList.size(); i++)
 	{
-		sprites[i]->Render(GetLocalTransform(), camPos);
-	}
-	for (int i = 0; i < animations.size(); i++)
-	{
-		animations[i]->Render(GetLocalTransform(), camPos);
+		drawableList[i]->Render(transMat * transform.GetLocalTransform());
 	}
 }

@@ -8,7 +8,7 @@ class Vector
 public: 
 #pragma region Constructors
 	Vector();
-	Vector(int dim);
+	Vector(double x, double y, double z = 0);
 	Vector(const Vector& vec);
 #pragma endregion
 
@@ -19,25 +19,30 @@ public:
 	Vector operator/(double n) const;
 #pragma endregion
 
+#pragma region Getters
+	double GetValueX() const {
+		return _vec[0];
+	}
+	double GetValueY() const {
+		return _vec[1];
+	}
+	double GetValueZ() const {
+		return _vec[2];
+	}
+#pragma endregion
+
 	double Dot(const Vector& vec) const;
 	double DistanceTo(const Vector& vec) const;
 	double LengthSqared() const;
 	double Length() const;
-	int GetDimension() const {
-		return dimension;
-	}
-	static Vector Normalize(Vector vec) {
-		double len = vec.Length();
-		Vector temp = Vector(vec);
-		temp = temp / len;
+
+	static Vector Zero() {
+		Vector temp = Vector();
+		temp._vec[3] = 0;
 		return temp;
 	}
-
-	double GetValueAt(int n);
-
 protected:
 	vector<double> _vec;
-	int dimension;
 
 	friend class Matrix;
 };

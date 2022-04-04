@@ -2,21 +2,23 @@
 
 Vector::Vector()
 {
-	dimension = 0;
-	_vec = vector<double>(0);
+	_vec = vector<double>(4);
+	_vec[3] = 1;
 }
 
-Vector::Vector(int dim)
+Vector::Vector(double x, double y, double z)
 {
-	dimension = dim;
-	_vec = vector<double>(dim, 0);
+	_vec = vector<double>(4, 0);
+	_vec[0] = x;
+	_vec[1] = y;
+	_vec[2] = z;
+	_vec[3] = 1;
 }
 
 Vector::Vector(const Vector& vec)
 {
-	dimension = vec.dimension;
-	_vec = vector<double>(dimension, 0);
-	for (int i = 0; i < dimension; i++) 
+	_vec = vector<double>(4, 0);
+	for (int i = 0; i < 4; i++) 
 	{
 		_vec[i] = vec._vec[i];
 	}
@@ -24,13 +26,8 @@ Vector::Vector(const Vector& vec)
 
 Vector Vector::operator+(const Vector& vec) const
 {
-	if (dimension != vec.dimension)
-	{
-		return Vector();
-	}
-
-	Vector temp = Vector(dimension);
-	for (int i = 0; i < dimension; i++) {
+	Vector temp = Vector();
+	for (int i = 0; i < 4; i++) {
 		temp._vec[i] = _vec[i] + vec._vec[i];
 	}
 	return temp;
@@ -38,13 +35,8 @@ Vector Vector::operator+(const Vector& vec) const
 
 Vector Vector::operator-(const Vector& vec) const
 {
-	if (dimension != vec.dimension)
-	{
-		return Vector();
-	}
-
-	Vector temp = Vector(dimension);
-	for (int i = 0; i < dimension; i++) {
+	Vector temp = Vector();
+	for (int i = 0; i < 4; i++) {
 		temp._vec[i] = _vec[i] - vec._vec[i];
 	}
 	return temp;
@@ -52,8 +44,8 @@ Vector Vector::operator-(const Vector& vec) const
 
 Vector Vector::operator*(double n) const
 {
-	Vector temp = Vector(dimension);
-	for (int i = 0; i < dimension; i++) {
+	Vector temp = Vector();
+	for (int i = 0; i < 4; i++) {
 		temp._vec[i] = _vec[i] * n;
 	}
 	return temp;
@@ -61,8 +53,8 @@ Vector Vector::operator*(double n) const
 
 Vector Vector::operator/(double n) const
 {
-	Vector temp = Vector(dimension);
-	for (int i = 0; i < dimension; i++) {
+	Vector temp = Vector();
+	for (int i = 0; i < 4; i++) {
 		temp._vec[i] = _vec[i] / n;
 	}
 	return temp;
@@ -70,13 +62,8 @@ Vector Vector::operator/(double n) const
 
 double Vector::Dot(const Vector& vec) const
 {
-	if (dimension != vec.dimension)
-	{
-		return 0.0;
-	}
-
 	double result = 0;
-	for (int i = 0; i < dimension; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		result += _vec[i] * vec._vec[i];
 	}
@@ -85,13 +72,8 @@ double Vector::Dot(const Vector& vec) const
 
 double Vector::DistanceTo(const Vector& vec) const
 {
-	if (dimension != vec.dimension)
-	{
-		return 0.0;
-	}
-
-	Vector temp = Vector(dimension);
-	for (int i = 0; i < dimension; i++) {
+	Vector temp = Vector();
+	for (int i = 0; i < 4; i++) {
 		temp._vec[i] = _vec[i] - vec._vec[i];
 	}
 	return temp.Length();
@@ -100,7 +82,7 @@ double Vector::DistanceTo(const Vector& vec) const
 double Vector::LengthSqared() const
 {
 	double result = 0;
-	for (int i = 0; i < dimension; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		result += _vec[i] * _vec[i];
 	}
@@ -110,13 +92,4 @@ double Vector::LengthSqared() const
 double Vector::Length() const
 {
 	return sqrt(this->LengthSqared());
-}
-
-double Vector::GetValueAt(int n)
-{
-	if (n < 0 || n > dimension)
-	{
-		return 0.0;
-	}
-	return _vec[n];
 }

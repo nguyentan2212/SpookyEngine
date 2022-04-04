@@ -1,15 +1,19 @@
 #pragma once
 #include <memory>
+#include <string>
 #include "Texture.h"
+#include "Drawable2D.h"
 #include "../Math/Transform2D.h"
 
-class Sprite : public Transform2D
+using namespace::std;
+
+class Sprite : public Drawable2D
 {
 public:
 	Sprite(std::shared_ptr<Texture> texture, LPD3DXSPRITE spriteHandler, RECT srcRect, bool isFlipped = false);
 	Sprite(std::shared_ptr<Texture> texture, LPD3DXSPRITE spriteHandler, double width, double height, double x, double y, bool isFlipped = false);
 
-	void Render(Matrix3D transMat, Vector3D camPos);
+	void Render(Matrix transMat);
 
 	double GetWidth() const {
 		return srcRect.right - srcRect.left;
@@ -21,10 +25,10 @@ public:
 		return texture;
 	}
 
+	bool isFlipped;
 private:
 	std::shared_ptr<Texture> texture; 
 	RECT srcRect;
 	LPD3DXSPRITE spriteHandler;
-	bool isFlipped;
 };
 

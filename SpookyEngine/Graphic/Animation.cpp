@@ -1,6 +1,6 @@
 #include "Animation.h"
 
-Animation::Animation()
+Animation::Animation() : Drawable2D()
 {
 	frames = vector<shared_ptr<Frame>>(0);
 	currentFrame = 0;
@@ -11,6 +11,17 @@ void Animation::AddFrame(shared_ptr<Sprite> sprite, int frameTime)
 {
 	shared_ptr<Frame> temp = shared_ptr<Frame>(new Frame(sprite, frameTime));
 	frames.push_back(temp);
+}
+
+void Animation::AddFrame(vector<shared_ptr<Sprite>> sprites, int frameTime)
+{
+	shared_ptr<Frame> temp = shared_ptr<Frame>(new Frame(sprites, frameTime));
+	frames.push_back(temp);
+}
+
+void Animation::AddFrame(shared_ptr<Frame> frame)
+{
+	frames.push_back(frame);
 }
 
 void Animation::Update(double delta)
@@ -33,15 +44,15 @@ void Animation::Update(double delta)
 	}
 }
 
-void Animation::Render(Matrix3D transMat, Vector3D camPos)
+void Animation::Render(Matrix transMat)
 {
 	if (frames.size() <= 0)
 	{
 		return;
 	}
-	OutputDebugStringW((L"[Animation]: " + to_wstring(currentFrame) + L"\n").c_str());
+	// OutputDebugStringW((L"[Animation]: " + to_wstring(currentFrame) + L"\n").c_str());
 	if (currentFrame == 2) {
 		
 	}
-	frames[currentFrame]->sprite->Render(transMat, camPos);
+	frames[currentFrame]->Render(transMat * transform.GetLocalTransform());
 }

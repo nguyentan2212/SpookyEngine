@@ -1,11 +1,22 @@
 ﻿#include "Graphic.h"
 
+shared_ptr<Graphic> Graphic::instance = nullptr;
+
 Graphic::~Graphic()
 {
 	d3d->Release(); 
 	d3ddev->Release();
 	backBuffer->Release();
 	spriteHandler->Release();
+}
+
+shared_ptr<Graphic> Graphic::GetInstance()
+{
+	if (instance == nullptr)
+	{
+		instance = shared_ptr<Graphic>(new Graphic());
+	}
+	return instance;
 }
 
 bool Graphic::Initialize(HWND hWnd, int width, int height)
@@ -18,15 +29,8 @@ bool Graphic::Initialize(HWND hWnd, int width, int height)
 		return false;
 	}
 
-	if (!InitializeTexture())
-	{
-		return false;
-	}
-
-	if (!InitializeScene() || currentScene == nullptr || cam == nullptr)
-	{
-		return false;
-	}
+	shared_ptr<Camera2D> camera = Camera2D::GetInstance();
+	camera->Initialize(0, 0, windowWidth, windowHeight);
 
 	return true;
 }
@@ -61,30 +65,24 @@ bool Graphic::InitializeDirectX(HWND hWnd)
 	return true;
 }
 
-void Graphic::UpdateScene(double delta)
+void Graphic::BeginRender()
 {
-	currentScene->Update(delta);
-	cam->Update(delta);
-}
+	/*D3DXMATRIX matScale;
+	D3DXMatrixScaling(&matScale, 2.0f, 2.0f, .0f);
+	spriteHandler->SetTransform(&matScale);*/
 
-void Graphic::Render()
-{
 	d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 40, 100), 1.0f, 0);
-	
+
 	d3ddev->BeginScene();
 
 	spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+}
 
-	currentScene->Render(cam->GetLocalPosition());
-
+void Graphic::EndRender()
+{
 	spriteHandler->End();
 
 	d3ddev->EndScene();
 
 	d3ddev->Present(NULL, NULL, NULL, NULL);
-}
-
-shared_ptr<Sprite> Graphic::GetSprite(shared_ptr<Texture> texture, double width, double height, double x, double y, bool isFlipped)
-{
-	return shared_ptr<Sprite>(new Sprite(texture, spriteHandler, width, height, x, y, isFlipped));
 }

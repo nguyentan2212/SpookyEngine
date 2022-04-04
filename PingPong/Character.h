@@ -9,12 +9,11 @@ class Character : public GameObject
 {
 public: 
 	Character() : GameObject() {}
-	Character(const Vector3D& position) : GameObject(position) {}
+	Character(const Vector& position) : GameObject(position) {}
 	Character(const Transform2D& transform) : GameObject(transform) {}
 
 	void Initialize();
 	void Update(double delta);
-	void Render(Vector3D camPos);
 
 private: 
 	int state = RIGHT;

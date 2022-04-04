@@ -1,36 +1,49 @@
 #include "Camera2D.h"
 
-Camera2D::Camera2D(double top, double left, double width, double height, double _near, double _far)
+shared_ptr<Camera2D> Camera2D::instance = nullptr;
+
+void Camera2D::Initialize(double top, double left, double width, double height)
 {
-	SetLocalPosition(Vector3D(left, top, 0));
+	position = Vector(left, top);
 	this->width = width;
 	this->height = height;
-	this->_far = _far;
-	this->_near = _near;
-
-	oProjectionMat = Matrix3D(true);
-	CalcProjectionMatrix();
 }
 
-void Camera2D::Translate(double x, double y)
+void Camera2D::Update()
 {
-	Transform2D::Translate(x, y);
-	CalcProjectionMatrix();
+	if (followedObj == nullptr)
+	{
+		return;
+	}
+
+	Vector center = position + Vector(width / 4, height / 4);
+	Vector trans = followedObj->GetLocalPosition() - center;
+	Vector temp = position + trans;
+
+	double x = 0;
+	double y = 0;
+	if (temp.GetValueX() > 0)
+	{
+		x = temp.GetValueX();
+	}
+	if (temp.GetValueY() > 0)
+	{
+		y = temp.GetValueY();
+	}
+
+	position = Vector(x, y);
 }
 
-void Camera2D::CalcProjectionMatrix()
+void Camera2D::FollowObj(shared_ptr<GameObject> followedObj)
 {
-	Vector3D pos = GetLocalPosition();
-	double left = pos.GetValueX();
-	double top = pos.GetValueY();
-	double bottom = top + height;
-	double right = left + width;
+	this->followedObj = followedObj;
+}
 
-	oProjectionMat.SetValueAt(0, 0, 2 / (right - left));
-	oProjectionMat.SetValueAt(1, 1, 2 / (top - bottom));
-	// oProjectionMat.SetValueAt(2, 2, -2 / (_far - _near));
-
-	oProjectionMat.SetValueAt(0, 3, -(right + left) / (right - left));
-	oProjectionMat.SetValueAt(1, 3, -(top + bottom) / (top - bottom));
-	// oProjectionMat.SetValueAt(2, 3, -(_far + _near) / (_far - _near));
+shared_ptr<Camera2D> Camera2D::GetInstance()
+{
+	if (instance == nullptr)
+	{
+		instance = shared_ptr<Camera2D>(new Camera2D());
+	}
+	return instance;
 }

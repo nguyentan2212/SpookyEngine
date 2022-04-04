@@ -2,85 +2,55 @@
 
 bool CustomScene::Initialize()
 {
-	shared_ptr<CustomGraphic> graphic = CustomGraphic::GetInstance();
+    shared_ptr<ResourceLocator> locator = ResourceLocator::GetInstance();
 
-	// background
-	shared_ptr<Texture> tx = graphic->GetTexture("background");
-	shared_ptr<Sprite> sprite = graphic->GetSprite(tx, 1680, 1050, 0, 0);
-	sprite->SetLocalPosition(Vector3D(0, 0, 0));
+    // background's sprites
+    shared_ptr<GameObject> background = shared_ptr<GameObject>(new GameObject());
+    shared_ptr<Sprite> sprite = locator->GetSprite("background/0.png");
+    sprite->SetLocalPosition(Vector(0, -63));
+    background->AddSprite(sprite);
+    sprite = locator->GetSprite("background/1.png");
+    sprite->SetLocalPosition(Vector(0, -36));
+    background->AddSprite(sprite);
 
-	shared_ptr<GameObject> obj = shared_ptr<GameObject>(new GameObject(Vector3D(0, 0, 0)));
-	obj->AddSprite(sprite);
-	objs.push_back(obj);
+    // background's animation
+    shared_ptr<Animation> animation = shared_ptr<Animation>(new Animation());
+    for (int i = 0; i < 7; i++)
+    {
+        vector<shared_ptr<Sprite>> sprites(0);
+        
+        string name = "beach_2/" + to_string(2 * i) + ".png";
+        sprite = locator->GetSprite(name);
+        sprites.push_back(sprite);
 
-	// ani 1
-	shared_ptr<Animation> ani = shared_ptr<Animation>(new Animation());
-	double frameRate = 150;
-	tx = graphic->GetTexture("character0");
-	sprite = graphic->GetSprite(tx, 112, 128, 0, 0);
-	sprite->SetLocalPosition(Vector3D(0, 0, 0));
-	ani->AddFrame(sprite, frameRate);
+        name = "beach_2/" + to_string(2 * i + 1) + ".png";
+        sprite = locator->GetSprite(name);
+        sprite->SetLocalPosition(Vector(0, 24));
+        sprites.push_back(sprite);
+        animation->AddFrame(sprites, 50);
+    }
+    animation->SetLocalPosition(Vector(0, 160));
+    background->AddAnimation(animation);
+    background->SetLocalPosition(Vector(0, 0));
+    objs.push_back(background);
 
-	tx = graphic->GetTexture("character1");
-	sprite = graphic->GetSprite(tx, 78, 132, 0, 0);
-	sprite->SetLocalPosition(Vector3D(0, 0, 0));
-	ani->AddFrame(sprite, frameRate);
+    // character's animation
+    animation = shared_ptr<Animation>(new Animation());
+    for (int i = 0; i < 7; i++)
+    {
+        string name = "idle/" + to_string(i) + ".png";
+        sprite = locator->GetSprite(name);
+        sprite->isFlipped = true;
+        animation->AddFrame(sprite, 50);
+    }
 
-	tx = graphic->GetTexture("character2");
-	sprite = graphic->GetSprite(tx, 89, 135, 0, 0);
-	sprite->SetLocalPosition(Vector3D(0, 0, 0));
-	ani->AddFrame(sprite, frameRate);
+    shared_ptr<Character> character = shared_ptr<Character>(new Character());
+    character->AddAnimation(animation);
+    character->SetLocalPosition(Vector(50, 50));
+    objs.push_back(character);
 
-	tx = graphic->GetTexture("character3");
-	sprite = graphic->GetSprite(tx, 124, 131, 0, 0);
-	sprite->SetLocalPosition(Vector3D(0, 0, 0));
-	ani->AddFrame(sprite, frameRate);
-
-	tx = graphic->GetTexture("character4");
-	sprite = graphic->GetSprite(tx, 132, 128, 0, 0);
-	sprite->SetLocalPosition(Vector3D(0, 0, 0));
-	ani->AddFrame(sprite, frameRate);
-
-	tx = graphic->GetTexture("character5");
-	sprite = graphic->GetSprite(tx, 101, 128, 0, 0);
-	sprite->SetLocalPosition(Vector3D(0, 0, 0));
-	ani->AddFrame(sprite, frameRate);
-
-	tx = graphic->GetTexture("character6");
-	sprite = graphic->GetSprite(tx, 86, 132, 0, 0);
-	sprite->SetLocalPosition(Vector3D(0, 0, 0));
-	ani->AddFrame(sprite, frameRate);
-
-	tx = graphic->GetTexture("character7");
-	sprite = graphic->GetSprite(tx, 97, 135, 0, 0);
-	sprite->SetLocalPosition(Vector3D(0, 0, 0));
-	ani->AddFrame(sprite, frameRate);
-
-	tx = graphic->GetTexture("character8");
-	sprite = graphic->GetSprite(tx, 116, 132, 0, 0);
-	sprite->SetLocalPosition(Vector3D(0, 0, 0));
-	ani->AddFrame(sprite, frameRate);
-	
-	tx = graphic->GetTexture("character9");
-	sprite = graphic->GetSprite(tx, 131, 128, 0, 0);
-	sprite->SetLocalPosition(Vector3D(0, 0, 0));
-	ani->AddFrame(sprite, frameRate);
-
-	// char 1
-	obj = shared_ptr<Character>(new Character(Vector3D(150, 150, 0)));
-	obj->AddAnimation(ani);
-	objs.push_back(obj);
-
-	// obj 2
-	obj = shared_ptr<GameObject>(new GameObject(Vector3D(600, 730, 0)));
-	obj->AddAnimation(ani);
-	objs.push_back(obj);
-
-	// obj 3
-	obj = shared_ptr<GameObject>(new GameObject(Vector3D(800, -100, 0)));
-	obj->AddAnimation(ani);
-
-	objs.push_back(obj);
+    //shared_ptr<Camera2D> camera = Camera2D::GetInstance();
+    //camera->FollowObj(character);
 
     return true;
 }

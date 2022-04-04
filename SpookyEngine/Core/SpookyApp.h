@@ -4,8 +4,10 @@
 #include <string>
 #include "Timer.h"
 #include "SpookyWindow.h"
+#include "ResourceLocator.h"
 #include "../Keyboard/KeyboardClass.h"
 #include "../Graphic/Graphic.h"
+#include "Scene.h"
 
 class SpookyWindow;
 class SpookyApp
@@ -20,16 +22,16 @@ public:
 	void Update();
 	void Render();
 
-	void SetGraphic(shared_ptr<Graphic> graphic);
-
+	void AddScene(shared_ptr<Scene> scene);
 	LRESULT WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 protected:
 	Timer timer;
 	shared_ptr<SpookyWindow> pWindow;
-	shared_ptr<Graphic> graphic;
+	vector<shared_ptr<Scene>> scenes;
+	int currentScene = 0;
 	SpookyApp();
 	double lag = 0;
-	double const MS_PER_UPDATE = 1000.0 / 30.0;
+	double const MS_PER_UPDATE = 1000.0 / 40.0;
 	static shared_ptr<SpookyApp> instance;
 };
 

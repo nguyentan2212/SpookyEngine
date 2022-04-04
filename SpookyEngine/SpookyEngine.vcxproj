@@ -149,42 +149,45 @@
   <ItemGroup>
     <ClInclude Include="Core\Camera2D.h" />
     <ClInclude Include="Core\GameObject.h" />
+    <ClInclude Include="Core\ResourceLocator.h" />
     <ClInclude Include="Core\Scene.h" />
     <ClInclude Include="Core\SpookyApp.h" />
     <ClInclude Include="Core\SpookyWindow.h" />
     <ClInclude Include="Core\Timer.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Graphic\Animation.h" />
+    <ClInclude Include="Graphic\Drawable2D.h" />
+    <ClInclude Include="Graphic\Frame.h" />
     <ClInclude Include="Graphic\Graphic.h" />
     <ClInclude Include="Graphic\Sprite.h" />
     <ClInclude Include="Graphic\Texture.h" />
     <ClInclude Include="Keyboard\KeyboardClass.h" />
     <ClInclude Include="Keyboard\KeyboardEvent.h" />
     <ClInclude Include="Math\Matrix.h" />
-    <ClInclude Include="Math\Matrix3D.h" />
     <ClInclude Include="Math\Transform2D.h" />
     <ClInclude Include="Math\Vector.h" />
-    <ClInclude Include="Math\Vector3D.h" />
+    <ClInclude Include="Utils\json.hpp" />
     <ClInclude Include="Utils\StringConverter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Camera2D.cpp" />
     <ClCompile Include="Core\GameObject.cpp" />
+    <ClCompile Include="Core\ResourceLocator.cpp" />
     <ClCompile Include="Core\Scene.cpp" />
     <ClCompile Include="Core\SpookyApp.cpp" />
     <ClCompile Include="Core\SpookyWindow.cpp" />
     <ClCompile Include="Core\Timer.cpp" />
     <ClCompile Include="Graphic\Animation.cpp" />
+    <ClCompile Include="Graphic\Drawable2D.cpp" />
+    <ClCompile Include="Graphic\Frame.cpp" />
     <ClCompile Include="Graphic\Graphic.cpp" />
     <ClCompile Include="Graphic\Sprite.cpp" />
     <ClCompile Include="Graphic\Texture.cpp" />
     <ClCompile Include="Keyboard\KeyboardClass.cpp" />
     <ClCompile Include="Keyboard\KeyboardEvent.cpp" />
     <ClCompile Include="Math\Matrix.cpp" />
-    <ClCompile Include="Math\Matrix3D.cpp" />
     <ClCompile Include="Math\Transform2D.cpp" />
     <ClCompile Include="Math\Vector.cpp" />
-    <ClCompile Include="Math\Vector3D.cpp" />
     <ClCompile Include="Utils\StringConverter.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

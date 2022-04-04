@@ -2,4 +2,5 @@
 
 #include "resource.h"
 #include "Core/SpookyApp.h"
-#include "CustomGraphic.h"
+#include "Graphic/Graphic.h"
+#include "CustomScene.h"

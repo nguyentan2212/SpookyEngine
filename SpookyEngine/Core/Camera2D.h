@@ -1,28 +1,33 @@
 #pragma once
 #include<d3d9.h>
-#include "../Math/Transform2D.h"
-#include "../Math/Matrix3D.h"
+#include <memory>
+#include "GameObject.h"
 
-class Camera2D : public Transform2D
+using namespace::std;
+
+class Camera2D
 {
 public:
-	Camera2D(double top, double left, double width, double height, double _near, double _far);
+	Camera2D(Camera2D&) = delete;
+	void operator=(Camera2D&) = delete;
+	static shared_ptr<Camera2D> GetInstance();
+	void Initialize(double top, double left, double width, double height);
+	void Update();
 
-	virtual void Update(double delta) {}
-
-	Matrix3D GetProjectionMatrix() const {
-		return oProjectionMat;
+	void FollowObj(shared_ptr<GameObject> followedObj);
+	void SetPosition(Vector pos) {
+		position = Vector(pos);
+	}
+	Vector GetPosition() const {
+		return position;
 	}
 
-	Matrix3D GetViewMatrix() const {
-		return viewMat;
-	}
-	void Translate(double x, double y);
-
-protected:
-	Matrix3D oProjectionMat, viewMat;
-	double width, height, _far, _near;
-	Vector3D cameraDirection, cameraRight, cameraUp;
-	void CalcProjectionMatrix();
+private:
+	Camera2D() {};
+	double width = 0;
+	double height = 0;
+	Vector position;
+	shared_ptr<GameObject> followedObj;
+	static shared_ptr<Camera2D> instance;
 };
 

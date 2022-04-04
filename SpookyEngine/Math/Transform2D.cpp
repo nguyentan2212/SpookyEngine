@@ -2,21 +2,21 @@
 
 Transform2D::Transform2D()
 {
-	position = Vector3D();
-	transform = Matrix3D(true);
+	position = Vector();
+	transform = Matrix::Identity();
 }
 
 void Transform2D::Translate(double x, double y)
 {
-	transform = transform * Matrix3D::Translation(Vector3D(x, y, 0));
+	transform = transform * Matrix::Translation(Vector(x, y));
 }
 
 void Transform2D::Scaling(double x, double y)
 {
-	transform = transform * Matrix3D::Scaling(Vector3D(x, y, 1));
+	transform = transform * Matrix::Scaling(Vector(x, y));
 }
 
 void Transform2D::Rotation(double x, double y)
 {
-	transform = transform * Matrix3D::Rotation(Vector3D(x, y, 0));
+	transform = transform * Matrix::Rotation(Vector(x, y));
 }
