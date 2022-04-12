@@ -7,6 +7,7 @@
 #include "ResourceLocator.h"
 #include "../Keyboard/KeyboardClass.h"
 #include "../Graphic/Graphic.h"
+#include "Camera2D.h"
 #include "Scene.h"
 
 class SpookyWindow;

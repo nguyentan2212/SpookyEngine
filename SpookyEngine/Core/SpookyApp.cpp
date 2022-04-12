@@ -32,6 +32,9 @@ bool SpookyApp::Initialize(HINSTANCE hInstance, std::string window_title, std::s
 	shared_ptr<ResourceLocator> locator = ResourceLocator::GetInstance();
 	locator->Initialize();
 
+	shared_ptr<Camera2D> camera = Camera2D::GetInstance();
+	camera->Initialize(0, 0, width, height);
+
 	coordinateMatrix = Matrix::Translation(Vector(0, height));
 	coordinateMatrix.SetValueAt(1, 1, -1);
 
@@ -65,13 +68,7 @@ void SpookyApp::Render()
 	{
 		return;
 	}
-
-	shared_ptr<Graphic> graphic = Graphic::GetInstance();
-	graphic->BeginRender();
-
 	scenes[currentScene]->Render(coordinateMatrix);
-
-	graphic->EndRender();
 }
 
 void SpookyApp::AddScene(shared_ptr<Scene> scene)
