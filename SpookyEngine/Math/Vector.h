@@ -1,5 +1,7 @@
 #pragma once
 #include <vector>
+#include <d3dx9.h>
+
 using namespace::std;
 
 class Matrix;
@@ -35,7 +37,9 @@ public:
 	double DistanceTo(const Vector& vec) const;
 	double LengthSqared() const;
 	double Length() const;
-
+	D3DXVECTOR3 ToDirectXVector() {
+		return D3DXVECTOR3(_vec[0], _vec[1], _vec[2]);
+	}
 	static Vector Zero() {
 		Vector temp = Vector();
 		temp._vec[3] = 0;
