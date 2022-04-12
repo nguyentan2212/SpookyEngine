@@ -23,10 +23,13 @@ void Character::Update(double delta)
 	}
 	if (keyboard->KeyIsPressed(VK_UP))
 	{
-		transform.Translate(0, -1 * delta);
+		transform.Translate(0, 1 * delta);
 	}
 	if (keyboard->KeyIsPressed(VK_DOWN))
 	{
-		transform.Translate(0, 1 * delta);
+		transform.Translate(0, -1 * delta);
 	}
+	Vector pos = this->transform.GetLocalPosition();
+
+	//OutputDebugStringW((L"[Sprite]: " + to_wstring(pos.GetValueX()) + L", " + to_wstring(pos.GetValueY()) + L"\n").c_str());
 }
