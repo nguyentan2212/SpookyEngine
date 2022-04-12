@@ -51,15 +51,14 @@ bool Graphic::InitializeDirectX(HWND hWnd)
 	d3dpp.BackBufferWidth = windowWidth;
 
 	// create a device class using this information and the info from the d3dpp stuct
-	d3d->CreateDevice(D3DADAPTER_DEFAULT,
+	HRESULT hr = d3d->CreateDevice(D3DADAPTER_DEFAULT,
 		D3DDEVTYPE_HAL,
 		hWnd,
 		D3DCREATE_SOFTWARE_VERTEXPROCESSING,
 		&d3dpp,
 		&d3ddev);
 
-	d3ddev->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backBuffer);
-
+	hr = d3ddev->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backBuffer);
 	D3DXCreateSprite(d3ddev, &spriteHandler);
 
 	return true;
@@ -75,7 +74,8 @@ void Graphic::BeginRender()
 
 	d3ddev->BeginScene();
 
-	spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+	HRESULT hr = spriteHandler->Begin(D3DXSPRITE_SORT_DEPTH_FRONTTOBACK | D3DXSPRITE_ALPHABLEND);
+	
 }
 
 void Graphic::EndRender()
