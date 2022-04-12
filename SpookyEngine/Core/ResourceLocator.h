@@ -29,8 +29,15 @@ public:
 		return textures.at(name);
 	}
 
-	shared_ptr<Sprite> GetSprite(string name) const {
-		return sprites.at(name);
+	shared_ptr<Sprite> GetSprite(string name, Vector scaleVec = Vector(1, 1, 0)) const {
+		shared_ptr<SpriteInfo> info = sprites.at(name);
+		if (info == nullptr)
+		{
+			return nullptr;
+		}
+		shared_ptr<Graphic> graphic = Graphic::GetInstance();
+		shared_ptr<Sprite> sprite = shared_ptr<Sprite>(new Sprite(graphic->GetSpriteHandler(), info, scaleVec));
+		return sprite;
 	}
 private:
 	ResourceLocator();
@@ -38,7 +45,7 @@ private:
 
 	json initJson;
 	unordered_map<string, shared_ptr<Texture>> textures;
-	unordered_map<string, shared_ptr<Sprite>> sprites;
+	unordered_map<string, shared_ptr<SpriteInfo>> sprites;
 
 	json OpenJson(string jsonPath);
 	void InitializeTexture();

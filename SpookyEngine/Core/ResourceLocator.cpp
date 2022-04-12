@@ -44,14 +44,16 @@ void ResourceLocator::LoadTexture(string name, string path)
         string spriteName = element["filename"].get<string>();
 
         json frame = element["frame"];
+        shared_ptr<SpriteInfo> info = make_shared<SpriteInfo>();
         // sprite's size
-        double w = frame["w"].get<double>();
-        double h = frame["h"].get<double>();
+        info->width = frame["w"].get<double>();
+        info->height = frame["h"].get<double>();
         // sprite's position on sheet
-        double x = frame["x"].get<double>();
-        double y = frame["y"].get<double>();
-
-        sprites[spriteName] = shared_ptr<Sprite>(new Sprite(textures[name], graphic->GetSpriteHandler(), w, h, x, y));
+        info->x = frame["x"].get<double>();
+        info->y = frame["y"].get<double>();
+        
+        info->texture = textures[name];
+        sprites[spriteName] = info;
     }
 }
 
