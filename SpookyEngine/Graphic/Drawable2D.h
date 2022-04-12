@@ -8,6 +8,7 @@ public:
 
 	virtual void Update(double delta) {}
 	virtual void Render(Matrix transMat) = 0;
+	virtual void SetZIndex(float index) = 0;
 
 	void SetLocalPosition(Vector vec) {
 		transform.SetLocalPosition(vec);
@@ -22,7 +23,7 @@ public:
 	}
 protected:
 	Transform2D transform;
-	int z_index = 0;
+	float zIndex = 0;
 	Vector renderPosition;
 };
 

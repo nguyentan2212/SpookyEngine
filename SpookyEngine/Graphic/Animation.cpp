@@ -56,3 +56,11 @@ void Animation::Render(Matrix transMat)
 	}
 	frames[currentFrame]->Render(transMat * transform.GetLocalTransform());
 }
+
+void Animation::SetZIndex(float zIndex)
+{
+	for (int i = 0; i < frames.size(); i++)
+	{
+		frames[i]->SetZIndex(zIndex);
+	}
+}

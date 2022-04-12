@@ -12,6 +12,7 @@ public:
 	Frame(vector<shared_ptr<Sprite>> sprites, int frameTime);
 
 	void Render(Matrix transMat);
+	void SetZIndex(float zIndex);
 
 private:
 	vector<shared_ptr<Sprite>> sprites;

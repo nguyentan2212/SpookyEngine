@@ -19,6 +19,7 @@ public:
 
 	void Update(double delta);
 	void Render(Matrix transMat);
+	void SetZIndex(float zIndex);
 
 	void SetLocalPosition(Vector vec) {
 		transform.SetLocalPosition(vec);

@@ -20,3 +20,11 @@ void Frame::Render(Matrix transMat)
 		sprites[i]->Render(transMat * transform.GetLocalTransform());
 	}
 }
+
+void Frame::SetZIndex(float zIndex)
+{
+	for (int i = 0; i < sprites.size(); i++)
+	{
+		sprites[i]->SetZIndex(zIndex);
+	}
+}
