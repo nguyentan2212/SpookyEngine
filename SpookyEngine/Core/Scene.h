@@ -3,6 +3,7 @@
 #include <vector>
 #include "GameObject.h"
 #include "../Graphic/Graphic.h"
+#include "Camera2D.h"
 #include "ResourceLocator.h"
 
 using namespace::std;
