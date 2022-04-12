@@ -51,6 +51,9 @@ bool CustomScene::Initialize()
     shared_ptr<Character> character = shared_ptr<Character>(new Character());
     character->AddAnimation(animation);
     character->SetLocalPosition(Vector(25, 25));
+    character->width = 48;
+    character->height = 44;
+    character->isDrawBox = true;
     objs.push_back(character);
 
     //shared_ptr<Camera2D> camera = Camera2D::GetInstance();
