@@ -36,7 +36,7 @@ public:
 			return nullptr;
 		}
 		shared_ptr<Graphic> graphic = Graphic::GetInstance();
-		shared_ptr<Sprite> sprite = shared_ptr<Sprite>(new Sprite(graphic->GetSpriteHandler(), info, scaleVec));
+		shared_ptr<Sprite> sprite = shared_ptr<Sprite>(new Sprite(info, scaleVec));
 		return sprite;
 	}
 private:

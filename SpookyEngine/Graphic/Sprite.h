@@ -4,19 +4,20 @@
 #include "Texture.h"
 #include "Drawable2D.h"
 #include "../Math/Transform2D.h"
+#include "Graphic.h"
 
 using namespace::std;
 
 struct SpriteInfo {
-	double x, y, width, height;
+	long x, y, width, height;
 	shared_ptr<Texture> texture;
 };
 
 class Sprite : public Drawable2D
 {
 public:
-	Sprite(LPD3DXSPRITE spriteHandler, shared_ptr<SpriteInfo> info, Vector scaleVec);
-	Sprite(LPD3DXSPRITE spriteHandler, shared_ptr<SpriteInfo> info, double scaleX = 1, double scaleY = 1);
+	Sprite(shared_ptr<SpriteInfo> info, Vector scaleVec);
+	Sprite(shared_ptr<SpriteInfo> info, double scaleX = 1, double scaleY = 1);
 
 	void Render(Matrix transMat);
 	void SetZIndex(float zIndex);
@@ -39,9 +40,12 @@ public:
 		return Vector(info->width / 2, info->height / 2, 0);
 	}
 
+	shared_ptr<SpriteInfo> GetInfo() const {
+		return info;
+	}
+
 private:
 	shared_ptr<SpriteInfo> info;
 	Vector scaleVec;
-	LPD3DXSPRITE spriteHandler;
 };
 
