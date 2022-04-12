@@ -26,6 +26,7 @@ public:
 	LRESULT WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 protected:
 	Timer timer;
+	Matrix coordinateMatrix;
 	shared_ptr<SpookyWindow> pWindow;
 	vector<shared_ptr<Scene>> scenes;
 	int currentScene = 0;
