@@ -14,7 +14,7 @@ public:
 
 	virtual bool Initialize() { return true; }
 	virtual void Update(double delta);
-	virtual void Render();
+	virtual void Render(Matrix coordinateMatrix);
 
 protected:
 	vector<shared_ptr<GameObject>> objs;

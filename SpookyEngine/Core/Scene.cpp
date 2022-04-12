@@ -15,10 +15,10 @@ void Scene::Update(double delta)
 	camera->Update();
 }
 
-void Scene::Render()
+void Scene::Render(Matrix coordinateMatrix)
 {
 	shared_ptr<Camera2D> camera = Camera2D::GetInstance();
-	Matrix transMat = Matrix::Translation(camera->GetPosition() * -1);
+	Matrix transMat = coordinateMatrix * Matrix::Translation(camera->GetPosition() * -1);
 
 	for (int i = 0; i < objs.size(); i++)
 	{
