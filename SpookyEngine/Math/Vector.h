@@ -51,3 +51,8 @@ protected:
 	friend class Matrix;
 };
 
+struct BoundingBox {
+	Vector postion;
+	double width, height;
+	Vector velocity;
+};
