@@ -10,6 +10,7 @@ void Character::Update(double delta)
 	GameObject::Update(delta);
 
 	shared_ptr<KeyboardClass> keyboard = KeyboardClass::GetInstance();
+	Vector oldPosition = this->GetLocalPosition();
 
 	if (keyboard->KeyIsPressed(VK_LEFT))
 	{
@@ -31,5 +32,5 @@ void Character::Update(double delta)
 	}
 	Vector pos = this->transform.GetLocalPosition();
 
-	//OutputDebugStringW((L"[Sprite]: " + to_wstring(pos.GetValueX()) + L", " + to_wstring(pos.GetValueY()) + L"\n").c_str());
+	OutputDebugStringW((L"[Character]: " + to_wstring(pos.GetValueX()) + L", " + to_wstring(pos.GetValueY()) + L"\n").c_str());
 }

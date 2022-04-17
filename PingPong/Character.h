@@ -1,9 +1,12 @@
 #pragma once
+
 #include "Core/GameObject.h"
 #include "Keyboard/KeyboardClass.h"
 
 #define LEFT -1
 #define RIGHT 1
+
+using namespace::std;
 
 class Character : public GameObject
 {
