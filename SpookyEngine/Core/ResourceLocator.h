@@ -5,7 +5,6 @@
 #include <fstream>
 #include <string>
 #include <d3d9.h>
-#include "../Graphic/Graphic.h"
 #include "../Graphic/Texture.h"
 #include "../Graphic/Sprite.h"
 #include "../Utils/json.hpp"

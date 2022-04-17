@@ -41,7 +41,7 @@ void ResourceLocator::LoadTexture(string name, string path)
     for (auto& element : spritesList)
     {
         // sprite's name
-        string spriteName = element["filename"].get<string>();
+        string spriteName = name + "/" + element["filename"].get<string>();
 
         json frame = element["frame"];
         shared_ptr<SpriteInfo> info = make_shared<SpriteInfo>();
