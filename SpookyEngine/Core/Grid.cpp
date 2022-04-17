@@ -13,6 +13,21 @@ Grid::Grid()
 	grid = vector<vector<shared_ptr<Cell>>>(0);
 }
 
+//bool Grid::isColliding(BoundingBox obj, BoundingBox other)
+//{
+//	double otherLeft = other.postion.GetValueX() - other.width / 2;
+//	double otherBottom = other.postion.GetValueY() - other.height / 2;
+//	double objLeft = obj.postion.GetValueX() - obj.width / 2;
+//	double objBottom = obj.postion.GetValueY() - obj.height / 2;
+//
+//	double left = otherLeft - (objLeft + obj.width);
+//	double bottom = otherBottom - (objBottom + obj.height);
+//	double right = (otherLeft + other.width) - objLeft;
+//	double top = (otherBottom + other.height) - objBottom;
+//
+//	return !(left > 0 || right < 0 || top < 0 || bottom > 0);
+//}
+
 shared_ptr<Grid> Grid::GetInstance()
 {
 	if (instance == nullptr)
@@ -33,7 +48,11 @@ void Grid::Initialize(int width, int height, int cellWidth, int cellHeight)
 	grid = vector<vector<shared_ptr<Cell>>>(this->row);
 	for (int i = 0; i < this->row; i++)
 	{
-		grid[i] = vector<shared_ptr<Cell>>(this->col, make_shared<Cell>());
+		grid[i] = vector<shared_ptr<Cell>>(this->col);
+		for (int j = 0; j < this->col; j++)
+		{
+			grid[i][j] = shared_ptr<Cell>(new Cell());
+		}
 	}
 }
 
@@ -55,7 +74,7 @@ void Grid::Move(shared_ptr<GameObject> obj, Vector oldPostion)
 	int cellX = position.GetValueX() / cellWidth;
 	int cellY = position.GetValueY() / cellHeight;
 
-	OutputDebugStringW((L"[Grid]: " + to_wstring(cellX) + L", " + to_wstring(cellY) + L"\n").c_str());
+	// OutputDebugStringW((L"[Grid]: " + to_wstring(cellX) + L", " + to_wstring(cellY) + L"\n").c_str());
 
 	// if it didn't change cells, we're done.
 	if (oldCellX == cellX && oldCellY == cellY) return;
@@ -92,5 +111,61 @@ vector<shared_ptr<GameObject>> Grid::GetObjectOnCamera(double b, double l, doubl
 			}
 		}
 	}
+	
 	return result;
+}
+
+vector<CollisionEvent> Grid::GetObjectCollideWith(shared_ptr<GameObject> gameObj)
+{
+	// which cell it is in.
+	Vector position = gameObj->GetLocalPosition();
+	int cellX = position.GetValueX() / cellWidth;
+	int cellY = position.GetValueY() / cellHeight;
+
+	int bottom = 0;
+	int left = 0;
+	int top = 0;
+	int right = 0;
+
+	if (cellX > 0) 
+		left = cellX - 1;
+
+	if (cellX < col - 1) 
+		right = cellX + 1;
+
+	if (cellY > 0)
+		bottom = cellY - 1;
+
+	if (cellY < row - 1)
+		top = cellY + 1;
+
+	vector<shared_ptr<GameObject>> result(0);
+	for (int i = bottom; i <= top; i++)
+	{
+		for (int j = left; j <= right; j++)
+		{
+			vector<shared_ptr<GameObject>> temp = grid[i][j]->GetGameObjectList();
+			if (temp.size() > 0)
+			{
+				result.insert(result.end(), temp.begin(), temp.end());
+			}
+		}
+	}
+	vector<CollisionEvent> collision(0);
+	BoundingBox obj = gameObj->GetBoundingBox();
+	for (int i = 0; i < result.size(); i++)
+	{
+		if (result[i]->name != gameObj->name) {
+			BoundingBox other = result[i]->GetBoundingBox();
+			CollisionEvent collisionEvent;
+			collisionEvent.entryTime = Collision::sweptAABB(obj, other, collisionEvent.direction);
+			if (collisionEvent.entryTime < 1)
+			{
+				collisionEvent.obj = result[i];
+				collision.push_back(collisionEvent);
+			}
+		}
+	}
+
+	return collision;
 }
