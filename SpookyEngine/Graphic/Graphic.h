@@ -5,8 +5,10 @@
 #include <queue>
 #include "Drawable2D.h"
 #include "Sprite.h"
-
+ 
 using namespace::std;
+
+#define SCALE 1.5f
 
 struct vertex
 {
@@ -30,6 +32,10 @@ public:
 	void EndRender();
 	void BeginSprite();
 	void EndSprite();
+
+	double GetScaleFactor() const {
+		return 1.0f;
+	}
 
 	LPDIRECT3DDEVICE9 GetDevice() const {
 		return d3ddev;
