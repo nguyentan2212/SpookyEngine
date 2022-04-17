@@ -33,7 +33,7 @@ protected:
 	int currentScene = 0;
 	SpookyApp();
 	double lag = 0;
-	double const MS_PER_UPDATE = 1000.0 / 40.0;
+	double const MS_PER_UPDATE = 1000.0 / 30.0;
 	static shared_ptr<SpookyApp> instance;
 };
 

@@ -68,11 +68,12 @@ void SpookyApp::Render()
 	{
 		return;
 	}
-	scenes[currentScene]->Render(coordinateMatrix);
+	scenes[currentScene]->Render();
 }
 
 void SpookyApp::AddScene(shared_ptr<Scene> scene)
 {
+	scene->Initialize(coordinateMatrix);
 	scenes.push_back(scene);
 }
 
