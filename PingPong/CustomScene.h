@@ -5,8 +5,8 @@
 class CustomScene : public Scene
 {
 public:
-	CustomScene() : Scene() {}
+	CustomScene();
 
-	bool Initialize();
+	bool Initialize(Matrix coordinateMatrix);
 };
 
