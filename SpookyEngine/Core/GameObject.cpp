@@ -1,21 +1,20 @@
 #include "GameObject.h"
 
-GameObject::GameObject()
+GameObject::GameObject(string name)
 {
 	drawableList = vector<shared_ptr<Drawable2D>>(0);
 	transform = Transform2D();
+	this->name = name;
 }
 
-GameObject::GameObject(const Vector& position)
+GameObject::GameObject(string name, double width, double height, const Vector& position)
 {
 	transform = Transform2D();
 	transform.SetLocalPosition(position);
 	drawableList = vector<shared_ptr<Drawable2D>>(0);
-}
-
-GameObject::GameObject(const Transform2D& transform) : transform(transform)
-{
-	drawableList = vector<shared_ptr<Drawable2D>>(0);
+	this->name = name;
+	this->width = width;
+	this->height = height;
 }
 
 void GameObject::AddSprite(shared_ptr<Sprite> sprite)
@@ -33,6 +32,16 @@ void GameObject::SetLocalPosition(Vector position)
 	transform.SetLocalPosition(position);
 }
 
+void GameObject::SetVelocity(Vector velocity)
+{
+	transform.SetVelocity(velocity);
+}
+
+void GameObject::SetCoordinate(Matrix coordinate)
+{
+	this->coordinateMatrix = coordinate;
+}
+
 void GameObject::Update(double delta)
 {
 	for (int i = 0; i < drawableList.size(); i++)
@@ -45,6 +54,6 @@ void GameObject::Render(Matrix transMat)
 {
 	for (int i = 0; i < drawableList.size(); i++)
 	{
-		drawableList[i]->Render(transMat * transform.GetLocalTransform());
+		drawableList[i]->Render(transMat * GetWorldTransform());
 	}
 }
