@@ -1,29 +1,23 @@
 #include "Sprite.h"
 
-Sprite::Sprite(shared_ptr<SpriteInfo> info, Vector scaleVec)
+Sprite::Sprite(shared_ptr<SpriteInfo> info, Vector scale)
 {
 	this->info = info;
-	this->scaleVec = scaleVec;
-}
-
-Sprite::Sprite(shared_ptr<SpriteInfo> info, double scaleX, double scaleY)
-{
-	this->info = info;
-	this->scaleVec = Vector(scaleX, scaleY);
+	this->scale = scale;
 }
 
 void Sprite::Render(Matrix transMat)
 {
 	D3DXMATRIX matScale;
-	D3DXMatrixScaling(&matScale, scaleVec.GetValueX(), scaleVec.GetValueY(), .0f);
+	D3DXMatrixScaling(&matScale, scale.GetValueX() * SCALE, scale.GetValueY() * SCALE, .0f);
 	matScale._43 = zIndex;
 
-	transMat = Matrix::Scaling(scaleVec) * transMat;
+	transMat = Matrix::Scaling(scale / SCALE) * transMat;
 	Vector position = transMat * transform.GetLocalPosition();
 	Vector center = GetCenter();
 	RECT rect = GetSrcRect();
 
-	OutputDebugStringW((L"[Sprite]: " + to_wstring(position.GetValueX()) + L", " + to_wstring(zIndex) + L"\n").c_str());
+	// OutputDebugStringW((L"[Sprite]: " + to_wstring(position.GetValueX()) + L", " + to_wstring(zIndex) + L"\n").c_str());
 	
 	shared_ptr<Graphic> graphic = Graphic::GetInstance();
 	graphic->Draw(info, rect, center, position, matScale);

@@ -16,8 +16,7 @@ struct SpriteInfo {
 class Sprite : public Drawable2D
 {
 public:
-	Sprite(shared_ptr<SpriteInfo> info, Vector scaleVec);
-	Sprite(shared_ptr<SpriteInfo> info, double scaleX = 1, double scaleY = 1);
+	Sprite(shared_ptr<SpriteInfo> info, Vector scale = Vector(1, 1));
 
 	void Render(Matrix transMat);
 	void SetZIndex(float zIndex);
@@ -46,6 +45,6 @@ public:
 
 private:
 	shared_ptr<SpriteInfo> info;
-	Vector scaleVec;
+	Vector scale;
 };
 
