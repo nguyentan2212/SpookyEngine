@@ -168,6 +168,7 @@
     <ClInclude Include="Math\Matrix.h" />
     <ClInclude Include="Math\Transform2D.h" />
     <ClInclude Include="Math\Vector.h" />
+    <ClInclude Include="Physic\Collision.h" />
     <ClInclude Include="Utils\json.hpp" />
     <ClInclude Include="Utils\StringConverter.h" />
   </ItemGroup>
@@ -192,6 +193,7 @@
     <ClCompile Include="Math\Matrix.cpp" />
     <ClCompile Include="Math\Transform2D.cpp" />
     <ClCompile Include="Math\Vector.cpp" />
+    <ClCompile Include="Physic\Collision.cpp" />
     <ClCompile Include="Utils\StringConverter.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
+    <ClInclude Include="ChowmeinConga.h" />
     <ClInclude Include="CustomScene.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="PingPong.h" />
@@ -156,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="ChowmeinConga.cpp" />
     <ClCompile Include="CustomScene.cpp" />
     <ClCompile Include="PingPong.cpp" />
   </ItemGroup>
