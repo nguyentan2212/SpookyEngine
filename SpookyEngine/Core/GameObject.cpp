@@ -15,6 +15,7 @@ GameObject::GameObject(const Vector& position)
 
 GameObject::GameObject(const Transform2D& transform) : transform(transform)
 {
+	drawableList = vector<shared_ptr<Drawable2D>>(0);
 }
 
 void GameObject::AddSprite(shared_ptr<Sprite> sprite)
