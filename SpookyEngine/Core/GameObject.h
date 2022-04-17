@@ -25,14 +25,13 @@ public:
 	Vector GetLocalPosition() const {
 		return transform.GetLocalPosition();
 	}
-
 	int width = 0;
 	int height = 0;
 
+	string name;
 	bool isDrawBox = false;
 protected:
 	vector<shared_ptr<Drawable2D>> drawableList;
 	Transform2D transform;
-	
 };
 
