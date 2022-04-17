@@ -2,9 +2,9 @@
 
 shared_ptr<Camera2D> Camera2D::instance = nullptr;
 
-void Camera2D::Initialize(double top, double left, double width, double height)
+void Camera2D::Initialize(long bottom, long left, long width, long height)
 {
-	position = Vector(left, top);
+	position = Vector(left, bottom);
 	this->width = width;
 	this->height = height;
 }
@@ -32,6 +32,7 @@ void Camera2D::Update()
 	}
 
 	position = Vector(x, y);
+	OutputDebugStringW((L"[Sprite]: " + to_wstring(position.GetValueX()) + L", " + to_wstring(position.GetValueY()) + L"\n").c_str());
 }
 
 void Camera2D::FollowObj(shared_ptr<GameObject> followedObj)
