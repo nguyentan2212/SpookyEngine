@@ -16,7 +16,7 @@ void Camera2D::Update()
 		return;
 	}
 
-	Vector center = position + Vector(width / 4, height / 4);
+	Vector center = position + Vector(width / 2, height / 2);
 	Vector trans = followedObj->GetLocalPosition() - center;
 	Vector temp = position + trans;
 
@@ -32,7 +32,7 @@ void Camera2D::Update()
 	}
 
 	position = Vector(x, y);
-	OutputDebugStringW((L"[Sprite]: " + to_wstring(position.GetValueX()) + L", " + to_wstring(position.GetValueY()) + L"\n").c_str());
+	// OutputDebugStringW((L"[Sprite]: " + to_wstring(position.GetValueX()) + L", " + to_wstring(position.GetValueY()) + L"\n").c_str());
 }
 
 void Camera2D::FollowObj(shared_ptr<GameObject> followedObj)
