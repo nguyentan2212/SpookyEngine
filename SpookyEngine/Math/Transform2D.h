@@ -7,7 +7,7 @@ class Transform2D
 public:
 	Transform2D();
 
-	virtual void Translate(double x, double y);
+	void Translate(double x, double y);
 	void Scaling(double x, double y);
 	void Rotation(double x, double y);
 
@@ -26,6 +26,9 @@ public:
 		Matrix temp = GetTransform() * Matrix::Translation(position);
 		return temp;
 	}
+	Vector GetVelocity() const {
+		return velocity;
+	}
 #pragma endregion
 
 #pragma region Setter
@@ -33,9 +36,13 @@ public:
 		position = vec;
 		transform = Matrix::Identity();
 	}
+	void SetVelocity(Vector vec) {
+		velocity = vec;
+	}
 #pragma endregion
 private:
 	Vector position;
+	Vector velocity;
 	Matrix transform;
 };
 

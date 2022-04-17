@@ -9,6 +9,7 @@ Transform2D::Transform2D()
 void Transform2D::Translate(double x, double y)
 {
 	transform = transform * Matrix::Translation(Vector(x, y));
+	SetVelocity(Vector(x, y));
 }
 
 void Transform2D::Scaling(double x, double y)
