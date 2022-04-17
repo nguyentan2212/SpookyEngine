@@ -1,6 +1,7 @@
 #pragma once
 #include "Core/Scene.h"
 #include "Character.h"
+#include "ChowmeinConga.h"
 
 class CustomScene : public Scene
 {
