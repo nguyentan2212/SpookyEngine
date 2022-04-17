@@ -148,7 +148,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Core\Camera2D.h" />
+    <ClInclude Include="Core\Cell.h" />
     <ClInclude Include="Core\GameObject.h" />
+    <ClInclude Include="Core\Grid.h" />
     <ClInclude Include="Core\ResourceLocator.h" />
     <ClInclude Include="Core\Scene.h" />
     <ClInclude Include="Core\SpookyApp.h" />
@@ -171,7 +173,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Camera2D.cpp" />
+    <ClCompile Include="Core\Cell.cpp" />
     <ClCompile Include="Core\GameObject.cpp" />
+    <ClCompile Include="Core\Grid.cpp" />
     <ClCompile Include="Core\ResourceLocator.cpp" />
     <ClCompile Include="Core\Scene.cpp" />
     <ClCompile Include="Core\SpookyApp.cpp" />

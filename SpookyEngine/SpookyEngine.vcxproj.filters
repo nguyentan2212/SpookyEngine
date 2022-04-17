@@ -78,6 +78,12 @@
     <ClInclude Include="Graphic\Frame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Core\Cell.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Grid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\SpookyApp.cpp">
@@ -135,6 +141,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Graphic\Frame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Cell.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Grid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
