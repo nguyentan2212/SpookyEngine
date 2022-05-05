@@ -8,31 +8,30 @@ public:
 	Transform2D();
 
 	void Translate(double x, double y);
+	void Translate(Vector vec);
 	void Scaling(double x, double y);
 	void Rotation(double x, double y);
+	void Update(double delta);
 
 #pragma region Getter
-	Vector GetPosition() const {
+	Vector GetPosition() {
+		position = transform * position;
+		transform = Matrix::Identity();
 		return position;
 	}
-	Vector GetLocalPosition() const {
-		Vector temp = GetTransform() * position;
-		return temp;
-	}
-	Matrix GetTransform() const {
-		return transform;
-	}
-	Matrix GetLocalTransform() const {
-		Matrix temp = GetTransform() * Matrix::Translation(position);
-		return temp;
-	}
+
 	Vector GetVelocity() const {
 		return velocity;
 	}
+
+	Matrix GetTransformMatrix() {
+		return transform * Matrix::Translation(position);
+	}
+
 #pragma endregion
 
 #pragma region Setter
-	void SetLocalPosition(Vector vec) {
+	void SetPosition(Vector vec) {
 		position = vec;
 		transform = Matrix::Identity();
 	}

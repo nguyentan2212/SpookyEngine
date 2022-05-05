@@ -25,43 +25,22 @@ public:
 
 	void AddSprite(shared_ptr<Sprite> sprite);
 	void AddAnimation(shared_ptr<Animation> animation);
-	void SetLocalPosition(Vector position);
+	void SetPosition(Vector position);
 	void SetVelocity(Vector velocity);
-	void SetCoordinate(Matrix coordinate);
 
-	Vector GetLocalPosition() const {
-		return transform.GetLocalPosition();
+	Vector GetPosition() {
+		return transform.GetPosition();
 	}
-	BoundingBox GetBoundingBox() const {
-		Matrix temp = coordinateMatrix;
+	BoundingBox GetBoundingBox(double delta = 1) {
 		BoundingBox box;
 		box.width = width;
 		box.height = height;
-		box.postion = temp * transform.GetLocalPosition();
-		box.velocity = transform.GetVelocity();
+		box.position = transform.GetPosition();
+		box.velocity = transform.GetVelocity() * delta;
 
 		return box;
 	}
-
-	BoundingBox GetBoundingBox(Matrix transMat) const {
-		Matrix temp = coordinateMatrix;
-		BoundingBox box;
-		box.width = width;
-		box.height = height;
-		box.postion = temp * transMat * transform.GetLocalPosition();
-		box.velocity = transform.GetVelocity();
-
-		return box;
-	}
-
-	Matrix GetWorldTransform() {
-		return coordinateMatrix * transform.GetLocalTransform();
-	}
-
-	Vector GetWorldPosition() {
-		return coordinateMatrix * transform.GetLocalPosition();
-	}
-
+	
 	string name;
 	bool isDrawBox = false;
 protected:
@@ -69,6 +48,5 @@ protected:
 	Transform2D transform;
 	double width = 0;
 	double height = 0;
-	Matrix coordinateMatrix;
 };
 

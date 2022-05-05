@@ -2,10 +2,10 @@
 
 bool Collision::isColliding(BoundingBox obj, BoundingBox other)
 {
-	double otherLeft = other.postion.GetValueX() - other.width / 2;
-	double otherBottom = other.postion.GetValueY() - other.height / 2;
-	double objLeft = obj.postion.GetValueX() - obj.width / 2;
-	double objBottom = obj.postion.GetValueY() - obj.height / 2;
+	double otherLeft = other.position.GetValueX() - other.width / 2;
+	double otherBottom = other.position.GetValueY() - other.height / 2;
+	double objLeft = obj.position.GetValueX() - obj.width / 2;
+	double objBottom = obj.position.GetValueY() - obj.height / 2;
 
 	double left = otherLeft - (objLeft + obj.width);
 	double bottom = otherBottom - (objBottom + obj.height);
@@ -24,37 +24,43 @@ double Collision::sweptAABB(BoundingBox obj, BoundingBox other, int& direction)
 		other.velocity = Vector::Zero();
 	}
 
+	BoundingBox sweptBroadphaseBox = getSweptBroadphaseBox(obj);
+	if (!isColliding(sweptBroadphaseBox, other))
+	{
+		return 1.0;
+	}
+
 	double dxEntry, dxExit;
 	double dyEntry, dyExit;
 
 	double txEntry, txExit;
 	double tyEntry, tyExit;
 
-	double otherLeft = other.postion.GetValueX() - other.width / 2;
-	double otherBottom = other.postion.GetValueY() - other.height / 2;
-	double objLeft = obj.postion.GetValueX() - obj.width / 2;
-	double objBottom = obj.postion.GetValueY() - obj.height / 2;
+	double otherLeft = other.position.GetValueX() - other.width / 2.0;
+	double otherBottom = other.position.GetValueY() - other.height / 2.0;
+	double objLeft = obj.position.GetValueX() - obj.width / 2.0;
+	double objBottom = obj.position.GetValueY() - obj.height / 2.0;
 
 	if (obj.velocity.GetValueX() > 0)
 	{
-		dxEntry = otherLeft - (objLeft + obj.width);
-		dxExit = (otherLeft + other.width) - objLeft;
+		dxEntry = otherLeft - (obj.position.GetValueX() + obj.width / 2.0);
+		dxExit = (other.position.GetValueX() + other.width / 2.0) - objLeft;
 	}
 	else 
 	{
-		dxEntry = (otherLeft + other.width) - objLeft;
-		dxExit = otherLeft - (objLeft + obj.width);
+		dxEntry = (other.position.GetValueX() + other.width / 2.0) - objLeft;
+		dxExit = otherLeft - (obj.position.GetValueX() + obj.width / 2.0);
 	}
 
 	if (obj.velocity.GetValueY() > 0)
 	{
-		dyEntry = otherBottom - (objBottom + obj.height);
-		dyExit = (otherBottom + other.height) - objBottom;
+		dyEntry = otherBottom - (obj.position.GetValueY() + obj.height / 2.0);
+		dyExit = (other.position.GetValueY() + other.height / 2.0) - objBottom;
 	}
 	else 
 	{
-		dyEntry = (otherBottom + other.height) - objBottom;
-		dyExit = otherBottom - (objBottom + obj.height);
+		dyEntry = (other.position.GetValueY() + other.height / 2.0) - objBottom;
+		dyExit = otherBottom - (obj.position.GetValueY() + obj.height / 2.0);
 	}
 
 	if (obj.velocity.GetValueX() == 0)
@@ -82,6 +88,12 @@ double Collision::sweptAABB(BoundingBox obj, BoundingBox other, int& direction)
 	double entryTime = max(txEntry, tyEntry);
 	double exitTime = min(txExit, tyExit);
 
+	OutputDebugStringW((L"[Collision]: " + to_wstring(txEntry) + L", " + to_wstring(tyEntry) + L"\n").c_str());
+	if (entryTime > exitTime || (txEntry < 0.0f && tyEntry < 0.0f) || txEntry > 1.0f || tyEntry > 1.0f)
+	{
+		return 1;
+	}
+
 	if (txEntry > tyEntry)
 	{
 		if (dxEntry > 0.0f)
@@ -105,10 +117,18 @@ double Collision::sweptAABB(BoundingBox obj, BoundingBox other, int& direction)
 		}
 	}
 
-	if (entryTime > exitTime || (txEntry < 0.0f && tyEntry < 0.0f) || txEntry > 1.0f || tyEntry > 1.0f)
-	{
-		return 1;
-	}
 
 	return entryTime;
+}
+
+BoundingBox Collision::getSweptBroadphaseBox(BoundingBox obj)
+{
+	BoundingBox box;
+	box.velocity = obj.velocity;
+
+	box.width = obj.width + abs(obj.velocity.GetValueX());
+	box.height = obj.height + abs(obj.velocity.GetValueY());
+	box.position = obj.position + obj.velocity / 2.0;
+	
+	return box;
 }

@@ -19,7 +19,6 @@ public:
 	void Initialize();
 	void Update(double delta);
 	void Render(Matrix transMat);
-	void OnCollision(vector<CollisionEvent> collisionEvents);
 
 private: 
 	int state = RIGHT;

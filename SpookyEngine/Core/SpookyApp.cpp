@@ -21,6 +21,9 @@ bool SpookyApp::Initialize(HINSTANCE hInstance, std::string window_title, std::s
 {
     timer.Start();
 
+	coordinateMatrix = Matrix::Translation(Vector(0, height));
+	coordinateMatrix.SetValueAt(1, 1, -1);
+
 	// init windows
     if (!pWindow->Initialize(hInstance, window_title, window_class, width, height))
         return false;
@@ -34,9 +37,6 @@ bool SpookyApp::Initialize(HINSTANCE hInstance, std::string window_title, std::s
 
 	shared_ptr<Camera2D> camera = Camera2D::GetInstance();
 	camera->Initialize(0, 0, width, height);
-
-	coordinateMatrix = Matrix::Translation(Vector(0, height));
-	coordinateMatrix.SetValueAt(1, 1, -1);
 
     return true;
 }

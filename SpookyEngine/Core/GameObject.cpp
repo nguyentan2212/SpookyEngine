@@ -10,7 +10,7 @@ GameObject::GameObject(string name)
 GameObject::GameObject(string name, double width, double height, const Vector& position)
 {
 	transform = Transform2D();
-	transform.SetLocalPosition(position);
+	transform.SetPosition(position);
 	drawableList = vector<shared_ptr<Drawable2D>>(0);
 	this->name = name;
 	this->width = width;
@@ -27,19 +27,14 @@ void GameObject::AddAnimation(shared_ptr<Animation> animation)
 	drawableList.push_back(animation);
 }
 
-void GameObject::SetLocalPosition(Vector position)
+void GameObject::SetPosition(Vector position)
 {
-	transform.SetLocalPosition(position);
+	transform.SetPosition(position);
 }
 
 void GameObject::SetVelocity(Vector velocity)
 {
 	transform.SetVelocity(velocity);
-}
-
-void GameObject::SetCoordinate(Matrix coordinate)
-{
-	this->coordinateMatrix = coordinate;
 }
 
 void GameObject::Update(double delta)
@@ -54,6 +49,6 @@ void GameObject::Render(Matrix transMat)
 {
 	for (int i = 0; i < drawableList.size(); i++)
 	{
-		drawableList[i]->Render(transMat * GetWorldTransform());
+		drawableList[i]->Render(transMat * transform.GetTransformMatrix());
 	}
 }

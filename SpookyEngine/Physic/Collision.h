@@ -14,5 +14,8 @@ class Collision
 public:
 	static bool isColliding(BoundingBox obj, BoundingBox other);
 	static double sweptAABB(BoundingBox obj, BoundingBox other, int& direction);
+
+private:
+	static BoundingBox getSweptBroadphaseBox(BoundingBox obj);
 };
 

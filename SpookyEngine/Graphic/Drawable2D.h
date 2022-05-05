@@ -10,17 +10,10 @@ public:
 	virtual void Render(Matrix transMat) = 0;
 	virtual void SetZIndex(float index) = 0;
 
-	void SetLocalPosition(Vector vec) {
-		transform.SetLocalPosition(vec);
+	void SetPosition(Vector vec) {
+		transform.SetPosition(vec);
 	}
 
-	void SetRenderPosition(Vector vec) {
-		renderPosition = vec;
-	}
-
-	Vector GetRenderPosition() const {
-		return renderPosition;
-	}
 protected:
 	Transform2D transform;
 	float zIndex = 0;

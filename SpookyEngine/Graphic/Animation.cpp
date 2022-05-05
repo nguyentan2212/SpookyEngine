@@ -54,7 +54,7 @@ void Animation::Render(Matrix transMat)
 	if (currentFrame == 2) {
 		
 	}
-	frames[currentFrame]->Render(transMat * transform.GetLocalTransform());
+	frames[currentFrame]->Render(transMat * transform.GetTransformMatrix());
 }
 
 void Animation::SetZIndex(float zIndex)

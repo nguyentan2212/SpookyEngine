@@ -21,8 +21,8 @@ public:
 	void Render(Matrix transMat);
 	void SetZIndex(float zIndex);
 
-	void SetLocalPosition(Vector vec) {
-		transform.SetLocalPosition(vec);
+	void SetPosition(Vector vec) {
+		transform.SetPosition(vec);
 	}
 
 private:

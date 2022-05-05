@@ -13,7 +13,7 @@ void Sprite::Render(Matrix transMat)
 	matScale._43 = zIndex;
 
 	transMat = Matrix::Scaling(scale / SCALE) * transMat;
-	Vector position = transMat * transform.GetLocalPosition();
+	Vector position = transMat * transform.GetPosition();
 	Vector center = GetCenter();
 	RECT rect = GetSrcRect();
 

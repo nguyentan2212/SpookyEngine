@@ -17,7 +17,7 @@ void Camera2D::Update()
 	}
 
 	Vector center = position + Vector(width / 2, height / 2);
-	Vector trans = followedObj->GetLocalPosition() - center;
+	Vector trans = followedObj->GetPosition() - center;
 	Vector temp = position + trans;
 
 	double x = 0;

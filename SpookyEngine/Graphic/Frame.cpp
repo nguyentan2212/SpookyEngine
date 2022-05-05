@@ -17,7 +17,7 @@ void Frame::Render(Matrix transMat)
 {
 	for (int i = 0; i < sprites.size(); i++)
 	{
-		sprites[i]->Render(transMat * transform.GetLocalTransform());
+		sprites[i]->Render(transMat * transform.GetTransformMatrix());
 	}
 }
 

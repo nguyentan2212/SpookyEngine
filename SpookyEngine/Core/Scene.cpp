@@ -19,19 +19,11 @@ void Scene::Update(double delta)
 	shared_ptr<Grid> grid = Grid::GetInstance();
 	for (int i = 0; i < objs.size(); i++)
 	{
-		Vector oldPosition = objs[i]->GetLocalPosition();
+		Vector oldPosition = objs[i]->GetPosition();
 		objs[i]->Update(delta);
 		grid->Move(objs[i], oldPosition);
 	}
 
-	for (int i = 0; i < objs.size(); i++)
-	{
-		vector<CollisionEvent> result = grid->GetObjectCollideWith(objs[i]);
-		if (result.size() > 0)
-		{
-			objs[i]->OnCollision(result);
-		}
-	}
 	if (background != nullptr)
 	{
 		background->Update(delta);
@@ -44,13 +36,13 @@ void Scene::Render()
 	shared_ptr<Camera2D> camera = Camera2D::GetInstance();
 	Vector bottomLeft = camera->GetPosition();
 	Vector topRight = bottomLeft + camera->GetSize();
-	Matrix transMat = Matrix::Translation(camera->GetPosition() * -1);
+	Matrix transMat = coordinateMatrix * Matrix::Translation(camera->GetPosition() * -1);
 
 	shared_ptr<Graphic> graphic = Graphic::GetInstance();
 	shared_ptr<Grid> grid = Grid::GetInstance();
 
 	// get objs on camera
-	vector<shared_ptr<GameObject>> result = grid->GetObjectOnCamera(bottomLeft.GetValueY(), bottomLeft.GetValueX(), 
+	vector<shared_ptr<GameObject>> result = grid->GetObjectsOnCamera(bottomLeft.GetValueY(), bottomLeft.GetValueX(), 
 																	topRight.GetValueY(), topRight.GetValueX());
 
 	// OutputDebugStringW((L"[Scene's result array]: " + to_wstring(result.size()) + L"\n").c_str());
@@ -77,8 +69,9 @@ void Scene::Render()
 	{
 		if (result[i]->isDrawBox)
 		{
-			BoundingBox box = result[i]->GetBoundingBox(transMat);
-			graphic->DrawBox(box.postion.GetValueX(), box.postion.GetValueY(), box.width, box.height);
+			BoundingBox box = result[i]->GetBoundingBox();
+			Vector position = transMat * box.position;
+			graphic->DrawBox(position.GetValueX(), position.GetValueY(), box.width, box.height);
 		}
 	}
 	graphic->EndRender();
@@ -86,7 +79,6 @@ void Scene::Render()
 
 void Scene::AddGameObject(shared_ptr<GameObject> obj)
 {
-	obj->SetCoordinate(coordinateMatrix);
 	objs.push_back(obj);
 	shared_ptr<Grid> grid = Grid::GetInstance();
 	grid->AddGameObject(obj);

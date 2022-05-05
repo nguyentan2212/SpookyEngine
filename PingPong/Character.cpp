@@ -37,38 +37,52 @@ void Character::Initialize()
 
 void Character::Update(double delta)
 {
-	GameObject::Update(delta);
-
 	shared_ptr<KeyboardClass> keyboard = KeyboardClass::GetInstance();
-	Vector oldPosition = this->GetLocalPosition();
+	double speed = 0.5;
 
 	if (keyboard->KeyIsPressed(VK_LEFT))
 	{
-		transform.Translate(-1 * delta, 0);
+		SetVelocity(Vector(-speed, 0));
 		state = LEFT;
 	}
-	if (keyboard->KeyIsPressed(VK_RIGHT))
+	else if (keyboard->KeyIsPressed(VK_RIGHT))
 	{
-		transform.Translate(1 * delta, 0);
+		SetVelocity(Vector(speed, 0));
 		state = RIGHT;
 	}
-	if (keyboard->KeyIsPressed(VK_UP))
+	else if (keyboard->KeyIsPressed(VK_UP))
 	{
-		transform.Translate(0, 1 * delta);
+		SetVelocity(Vector(0, speed));
 	}
-	if (keyboard->KeyIsPressed(VK_DOWN))
+	else if (keyboard->KeyIsPressed(VK_DOWN))
 	{
-		transform.Translate(0, -1 * delta);
+		SetVelocity(Vector(0, -speed));
 	}
-	Vector pos = this->transform.GetLocalPosition();
+	else
+	{
+		SetVelocity(Vector::Zero());
+	}
+
 	shared_ptr<Grid> grid = Grid::GetInstance();
+	BoundingBox box = GetBoundingBox(delta);
+	CollisionEvent collisionEvent = grid->CollideWithGameObject(box, "enemy", delta);
+	Vector pos = this->transform.GetPosition();
+
+	transform.Translate(box.velocity * collisionEvent.entryTime);
+
+	if (collisionEvent.entryTime < 1.0)
+	{
+		// OutputDebugStringW((L"[Character]: " + to_wstring(pos.GetValueX()) + L", " + to_wstring(pos.GetValueY()) + L"\n").c_str());
+		SetVelocity(Vector::Zero());
+	}
+	GameObject::Update(delta);
 
 	//OutputDebugStringW((L"[Character]: " + to_wstring(pos.GetValueX()) + L", " + to_wstring(pos.GetValueY()) + L"\n").c_str());
 }
 
 void Character::Render(Matrix transMat)
 {
-	transMat = transMat * GetWorldTransform();
+	transMat = transMat * transform.GetTransformMatrix();
 	if (state == LEFT)
 	{
 		drawableList[0]->Render(transMat);
@@ -76,12 +90,4 @@ void Character::Render(Matrix transMat)
 	else {
 		drawableList[1]->Render(transMat);
 	}
-}
-
-void Character::OnCollision(vector<CollisionEvent> collisionEvents)
-{
-	shared_ptr<GameObject> obj = collisionEvents[0].obj;
-	wstring name = StringConverter::StringToWide(obj->name);
-	Vector pos = GetWorldPosition();
-	OutputDebugStringW((L"[Character]: " + name + L", x = " + to_wstring(pos.GetValueX()) + L"\n").c_str());
 }
