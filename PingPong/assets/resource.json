@@ -1,10 +1,16 @@
 {
-    "textures" : [
-        {
-            "name" : "ChowmeinConga"
-        },
-        {
-            "name": "Background"
-        }
-    ]
+  "textures": [
+    {
+      "name": "ChowmeinConga"
+    },
+    {
+      "name": "Background"
+    },
+    {
+      "name": "Lotust"
+    },
+    {
+      "name": "MarcoRossi"
+    }
+  ]
 }
