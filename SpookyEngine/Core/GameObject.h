@@ -11,6 +11,9 @@
 
 using namespace::std;
 
+#define LEFT 0
+#define RIGHT 1
+
 struct CollisionEvent;
 class GameObject
 {
@@ -40,7 +43,14 @@ public:
 
 		return box;
 	}
-	
+
+	void Destroy() {
+		isDestroyed = true;
+	}
+	bool IsDestroyed() const {
+		return isDestroyed;
+	}
+
 	string name;
 	bool isDrawBox = false;
 protected:
@@ -48,5 +58,6 @@ protected:
 	Transform2D transform;
 	double width = 0;
 	double height = 0;
+	bool isDestroyed = false;
 };
 
