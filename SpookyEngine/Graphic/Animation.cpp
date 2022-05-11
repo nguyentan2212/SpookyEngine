@@ -26,13 +26,13 @@ void Animation::AddFrame(shared_ptr<Frame> frame)
 
 void Animation::Update(double delta)
 {
+	IsDrawFinished = false;
 	if (frames.size() <= 0)
 	{
 		return;
 	}
-	aniTime += delta;
 	
-	while (aniTime > frames[currentFrame]->frameTime)
+	if (aniTime > frames[currentFrame]->frameTime)
 	{
 		aniTime = 0;
 		currentFrame++;
@@ -40,8 +40,10 @@ void Animation::Update(double delta)
 		if (currentFrame == frames.size())
 		{
 			currentFrame = 0;
+			IsDrawFinished = true;
 		}
 	}
+	aniTime += delta;
 }
 
 void Animation::Render(Matrix transMat)

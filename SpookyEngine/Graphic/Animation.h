@@ -24,7 +24,6 @@ public:
 	void SetPosition(Vector vec) {
 		transform.SetPosition(vec);
 	}
-
 private:
 	vector<shared_ptr<Frame>> frames;
 	int currentFrame;
