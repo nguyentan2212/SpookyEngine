@@ -6,9 +6,6 @@
 #include "Core/ResourceLocator.h"
 #include "Utils/StringConverter.h"
 
-#define LEFT -1
-#define RIGHT 1
-
 using namespace::std;
 
 class Character : public GameObject
