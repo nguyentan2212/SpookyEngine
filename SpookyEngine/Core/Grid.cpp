@@ -189,3 +189,13 @@ CollisionEvent Grid::CollideWithGameObject(BoundingBox obj, string otherName, do
 
 	return collisionEvent;
 }
+
+void Grid::RemoveGameObject(shared_ptr<GameObject> obj)
+{
+	// which cell it is moving to.
+	Vector position = obj->GetPosition();
+	int cellX = position.GetValueX() / cellWidth;
+	int cellY = position.GetValueY() / cellHeight;
+
+	grid[cellY][cellX]->RemoveGameObject(obj);
+}

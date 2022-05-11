@@ -29,6 +29,7 @@ public:
 	vector<shared_ptr<GameObject>> GetObjectsOnCamera(double b, double l, double t, double r);
 	vector<CollisionEvent> GetObjectsCollideWith(shared_ptr<GameObject> gameObj, double delta);
 	CollisionEvent CollideWithGameObject(BoundingBox obj, string otherName, double delta);
+	void RemoveGameObject(shared_ptr<GameObject> obj);
 
 private:
 	int width, height;
