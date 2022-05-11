@@ -14,6 +14,8 @@ public:
 		transform.SetPosition(vec);
 	}
 
+	bool IsDrawFinished = false;
+
 protected:
 	Transform2D transform;
 	float zIndex = 0;
