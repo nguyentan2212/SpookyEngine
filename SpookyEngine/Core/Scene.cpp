@@ -19,9 +19,16 @@ void Scene::Update(double delta)
 	shared_ptr<Grid> grid = Grid::GetInstance();
 	for (int i = 0; i < objs.size(); i++)
 	{
-		Vector oldPosition = objs[i]->GetPosition();
-		objs[i]->Update(delta);
-		grid->Move(objs[i], oldPosition);
+		if (objs[i]->IsDestroyed())
+		{
+			OnDestroy(i);
+		}
+		else
+		{
+			Vector oldPosition = objs[i]->GetPosition();
+			objs[i]->Update(delta);
+			grid->Move(objs[i], oldPosition);
+		}
 	}
 
 	if (background != nullptr)
@@ -82,4 +89,12 @@ void Scene::AddGameObject(shared_ptr<GameObject> obj)
 	objs.push_back(obj);
 	shared_ptr<Grid> grid = Grid::GetInstance();
 	grid->AddGameObject(obj);
+}
+
+void Scene::OnDestroy(int objIndex)
+{
+	shared_ptr<Grid> grid = Grid::GetInstance();
+	grid->RemoveGameObject(objs[objIndex]);
+
+	objs.erase(objs.begin() + objIndex);
 }

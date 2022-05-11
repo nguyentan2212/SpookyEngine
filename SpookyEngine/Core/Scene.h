@@ -20,6 +20,8 @@ protected:
 	Matrix coordinateMatrix;
 	void AddGameObject(shared_ptr<GameObject> obj);
 	shared_ptr<GameObject> background;
+	void OnDestroy(int objIndex);
+
 private:
 	vector<shared_ptr<GameObject>> objs;
 };
