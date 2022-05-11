@@ -46,18 +46,8 @@ bool CustomScene::Initialize(Matrix coordinateMatrix)
     background->AddAnimation(animation);
     background->SetPosition(Vector(0, 0));
 
-    // character
-    shared_ptr<Character> character = shared_ptr<Character>(new Character("character", 77, 66, Vector(37, 37)));
-    AddGameObject(character);
-
-    // camera following character
-    shared_ptr<Camera2D> camera = Camera2D::GetInstance();
-    camera->FollowObj(character);
-
     // ChowmeinConga
-    shared_ptr<ChowmeinConga> enemy = shared_ptr<ChowmeinConga>(new ChowmeinConga("enemy", 77, 66, Vector(200, 37)));
-    AddGameObject(enemy);
-    enemy = shared_ptr<ChowmeinConga>(new ChowmeinConga("enemy 2", 77, 66, Vector(750, 37)));
+    shared_ptr<ChowmeinConga> enemy = shared_ptr<ChowmeinConga>(new ChowmeinConga("enemy", 77, 66, Vector(200, 100)));
     AddGameObject(enemy);
 
     return true;
