@@ -2,7 +2,6 @@
 
 #include "SpriteState.h"
 #include "PlayerData.h"
-#include "Sound.h"
 
 class PlayerState : public SpriteState
 {
