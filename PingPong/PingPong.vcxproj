@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -122,7 +122,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>F:\SpookyEngine\SpookyEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\AngDy\SpookyEngine\SpookyEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -151,6 +151,7 @@
     <ClInclude Include="ChowmeinConga.h" />
     <ClInclude Include="CustomScene.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Locust.h" />
     <ClInclude Include="PingPong.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
@@ -160,6 +161,7 @@
     <ClCompile Include="ChowmeinConga.cpp" />
     <ClCompile Include="CustomScene.cpp" />
     <ClCompile Include="PingPong.cpp" />
+    <ClCompile Include="Locust.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PingPong.rc" />
